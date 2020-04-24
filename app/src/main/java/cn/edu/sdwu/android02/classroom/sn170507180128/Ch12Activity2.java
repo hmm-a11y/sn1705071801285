@@ -185,5 +185,4 @@ public class Ch12Activity2 extends AppCompatActivity {
     }
 
 
-
 }
