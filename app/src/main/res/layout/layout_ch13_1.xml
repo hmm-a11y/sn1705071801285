@@ -1,69 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+android:layout_width="match_parent"
+
+android:orientation="vertical"
+
+android:layout_height="match_parent">
+
+<EditText
+
     android:layout_width="match_parent"
 
-    android:orientation="vertical"
+    android:id="@+id/ch13_1_et"
 
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content" />
 
-    <EditText
+<Button
 
-        android:layout_width="wrap_content"
+    android:layout_width="wrap_content"
 
-        android:id="@+id/ch13_1_et"
+    android:onClick="write"
 
-        android:layout_height="wrap_content" />
+    android:text="writeFile"
 
-    <Button
+    android:layout_height="wrap_content" />
 
-        android:layout_width="wrap_content"
+<Button
 
-        android:onClick="write"
+    android:layout_width="wrap_content"
 
-        android:text="writeFile"
+    android:text="readFile"
 
-        android:layout_height="wrap_content" />
+    android:onClick="read"
 
-    <Button
+    android:layout_height="wrap_content" />
 
-        android:layout_width="wrap_content"
+<EditText
 
-        android:text="readFile"
+    android:layout_width="match_parent"
 
-        android:onClick="read"
+    android:hint="host ip"
 
-        android:layout_height="wrap_content" />
+    android:id="@+id/ch13_1_ip"
 
-    <EditText
+    android:layout_height="wrap_content" />
 
-        android:layout_width="match_parent"
+<EditText
 
-        android:hint="host ip"
+    android:layout_width="match_parent"
 
-        android:id="@+id/ch13_1_ip"
+    android:hint="host port"
 
-        android:layout_height="wrap_content" />
+    android:id="@+id/ch13_1_port"
 
-    <EditText
+    android:layout_height="wrap_content" />
 
-        android:layout_width="match_parent"
+<Button
 
-        android:hint="host port"
+    android:layout_width="wrap_content"
 
-        android:id="@+id/ch13_1_port"
+    android:text="saveSharePref"
 
-        android:layout_height="wrap_content" />
+    android:onClick="saveSharePref"
 
-    <Button
+    android:layout_height="wrap_content" />
 
-        android:layout_width="wrap_content"
+<Button
 
-        android:text="saveSharePref"
+    android:layout_width="wrap_content"
 
-        android:onClick="saveSharePref"
+    android:text="writeSd"
 
-        android:layout_height="wrap_content" />
+    android:onClick="writeSd"
+
+    android:layout_height="wrap_content" />
+
+<Button
+
+    android:layout_width="wrap_content"
+
+    android:text="readSd"
+
+    android:onClick="readSd"
+
+    android:layout_height="wrap_content" />
 
 
+
+<Button
+
+    android:layout_width="wrap_content"
+
+    android:text="readRaw"
+
+    android:onClick="readRaw"
+
+    android:layout_height="wrap_content" />
 
 </LinearLayout>
