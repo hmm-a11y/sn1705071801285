@@ -54,10 +54,8 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".Ch12Activity2"></activity>
-        <activity android:name=".Ch13Activity1">
-
-        </activity>
+        <activity android:name=".Ch12Activity2" />
+        <activity android:name=".Ch13Activity1" />
         <activity android:name=".Ch14Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,6 +63,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".MyContentProvider"
+            android:authorities="com.inspur.android02"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".Ch15Activity1"></activity>
     </application>
 
 </manifest>

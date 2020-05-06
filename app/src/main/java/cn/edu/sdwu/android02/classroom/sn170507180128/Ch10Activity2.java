@@ -1,10 +1,13 @@
 package cn.edu.sdwu.android02.classroom.sn170507180128;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,21 +16,20 @@ public class Ch10Activity2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_ch10_2);
     }
-    public  void send_broadcast(View view){
+    public void send_broadcast(View view){
         //发送广播
-        Intent intent=new Intent("com.inspur.broadcast");
+        Intent intent=new Intent("com.inspur.broadcast");//指定频道
         intent.putExtra("key1","message");
-        sendBroadcast(intent);//发送
 
+        sendBroadcast(intent);//发送
     }
-    public void  ch10Activity(View view){
+    public void ch10Activity(View view){
         Intent intent=new Intent(this,Ch10Activity1.class);
-        EditText editText=(EditText) findViewById(R.id.ch10_2_et);
-        intent.putExtra("text",editText.getText().toString());//设置传递的数据
+        EditText editText=(EditText)findViewById(R.id.ch10_2_et);
+        intent.putExtra("text",editText.getText().toString());//设置传递数据
         startActivity(intent);
     }
     public void startSubActivity(View view){
@@ -35,34 +37,40 @@ public class Ch10Activity2 extends AppCompatActivity {
         Intent intent=new Intent(this,Ch10Activity3.class);
         startActivityForResult(intent,101);
     }
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //3.在父Activity中获取返回值
-        //requestCode用来区分哪一个子activity返回的结果
-        if (requestCode == 101) {
-            if (resultCode == RESULT_OK) {
-                //用户点击确认进一步获取数据
-                String name = data.getStringExtra("name");
-                Toast.makeText(this, name, Toast.LENGTH_LONG).show();
-            } else {
+        //resultCode用来区分哪一个子activity返回的结果
+        if (requestCode==101){
+            if(resultCode==RESULT_OK){
+                //用户点击确认，进一步获取数据
+                String name= data.getStringExtra("name");
+                Toast.makeText(this,name,Toast.LENGTH_LONG).show();
+            }else{
                 Toast.makeText(this, "cancel", Toast.LENGTH_SHORT).show();
             }
-        } else if (requestCode ==102) {
+        }else if(requestCode==102){
             //从联系人列表返回的结果
-
-            if (resultCode == RESULT_OK) {
-                //得到联系人的信息（联系人的编号，lookup,uri)
-                String content = data.getDataString();
-                Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "cancel", Toast.LENGTH_SHORT).show();
+            if (resultCode==RESULT_OK){
+                //得到联系人的信息（联系人的编号,lookup uri）
+                String content=data.getDataString();
+                Log.i(Ch10Activity2.class.toString(),data.getData().toString());
+                ContentResolver contentResolver=this.getContentResolver();
+                Cursor cursor=contentResolver.query(data.getData(),null,null,null,null);
+                while(cursor.moveToNext()){
+                    String dispName=cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                    Toast.makeText(this,dispName,Toast.LENGTH_SHORT).show();
+                }
+                cursor.close();
+            }else{
+                Toast.makeText(this,"cancel",Toast.LENGTH_SHORT).show();
             }
         }
     }
     public void web(View view){
-        //使用隐式启动方式打开网页
+        //使用隐式启动方式，打开网页
         Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("http://baidu.com"));
         startActivity(intent);
+
     }
     public void contactsList(View view){
         //查看联系人的列表
@@ -86,14 +94,15 @@ public class Ch10Activity2 extends AppCompatActivity {
         startActivity(intent);
     }
     public void pickContact(View view){
-        //以子activity的形式，打开联系人列表，让用户选择一个联系人后，返回结果
+        //以子Activity的形式，打开联系人的列表，让用户选择一个联系人后，返回结果
         Intent intent=new Intent(Intent.ACTION_PICK);//隐式启动
         intent.setData(ContactsContract.Contacts.CONTENT_URI);
-        startActivityForResult(intent,102);
+        startActivityForResult(intent,102);//102为整形数
     }
-    public void implictStart(View view){
+    public void implicitStart(View view){
         Intent intent=new Intent("com.inspur.action2");
         intent.setData(Uri.parse("abc://inspur.com"));
         startActivity(intent);
     }
+
 }
